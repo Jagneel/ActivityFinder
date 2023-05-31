@@ -6,6 +6,7 @@ const activitySearch = document.getElementById('activity-search');
 const searchAgain = document.getElementById('search')
 const loadingScreen = document.getElementById('loading')
 const updateLoading = document.getElementById('updateLoading')
+const closeBtn = document.getElementById('closeBtn');
 
 // Function to show the modal
 function showModal() {
@@ -27,6 +28,11 @@ function hideLoadingScreen() {
   loadingScreen.style.display = 'none';
 }
 
+// Event listner to close modal manually
+closeBtn.addEventListener('click', function() {
+  hideModal();
+})
+
 hideLoadingScreen();
 
 // Initialize Leaflet map
@@ -45,6 +51,8 @@ const boundingBox = {
   topper: 0
 };
 let activityCounter = 0;
+const markers = L.markerClusterGroup(); // Create a marker cluster group
+map.addLayer(markers);
 
 // Convert CSV into JSON for the data.
 function csvToJson(csv) {
@@ -101,11 +109,15 @@ function updateLoadingScreen() {
 activitySearch.addEventListener('submit', async function(event) {
   event.preventDefault();
 
+  // Clear any existing markers on the map.
+  map.removeLayer(markers);
+
+  // Hide the form
   hideModal();
   
+  // Show the loading screen 
   showLoadingScreen();
 
-  const markers = L.markerClusterGroup(); // Create a marker cluster group
 
   const selectedCategories = Array.from(document.querySelectorAll("input[name=categories]:checked")).map(checkbox => checkbox.value);
 
@@ -121,9 +133,8 @@ activitySearch.addEventListener('submit', async function(event) {
     
     try {
       
-      // Clear existing markers
-      markers.clearLayers();
 
+      // Reset count
       activityCounter = 0;
 
       
