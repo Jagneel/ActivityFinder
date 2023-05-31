@@ -1,38 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Activity Finder</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Activity Finder</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
     crossorigin=""/>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="dist/MarkerCluster.css">
-    <link rel="stylesheet" href="dist/MarkerCluster.Default.css">
-     <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="script.js" defer></script>
-    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    <script src="dist/leaflet.markercluster-src.js"></script>
-
-
+  <!-- Marker Cluster CSS -->
+  <link rel="stylesheet" href="dist/MarkerCluster.css">
+  <link rel="stylesheet" href="dist/MarkerCluster.Default.css">
 </head>
 <body>
-    <main id='main'>
-        <!-- <div id="side-panel">
-            <h2>Activity List</h2>
-            <div id='activity-list'></div>
-        </div> -->
-        <div id="map">
-            <div id="postcode-search">
-                <input id="postcode" placeholder="Enter Postcode Here">
-                <button id="postcode-btn">Search</button>
+  <main id="main">
+    <h1>Croydon Voluntary Action</h1>
+    <!-- Modal -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <h2>Hello and welcome to Croydon Voluntary Action Activity Finder</h2>
+        <h3>To find activities near you, please check what categories you are interested in and enter your postcode.</h3>
+        <form class="modal-form" id="activity-search">
+            <div class="column">
+                <label><input type="checkbox" name="categories" value="Advocacy" /> Advocacy</label>
+                <label><input type="checkbox" name="categories" value="Alcohol & Substance Misuse" /> Alcohol & Substance Misuse</label>
+                <label><input type="checkbox" name="categories" value="Arts & Crafts" /> Arts & Crafts</label>
+                <label><input type="checkbox" name="categories" value="Befriending & Mentoring" /> Befriending & Mentoring</label>
+                <label><input type="checkbox" name="categories" value="Bereavement" /> Bereavement</label>
+                <label><input type="checkbox" name="categories" value="Carers " /> Carers </label>
+                <label><input type="checkbox" name="categories" value="Community Based Care" /> Community Based Care</label>
+                <label><input type="checkbox" name="categories" value="Community Centres" /> Community Centres</label>
+                <label><input type="checkbox" name="categories" value="Counselling" /> Counselling</label>
+                <label><input type="checkbox" name="categories" value="Day Centres" /> Day Centres</label>
+                <label><input type="checkbox" name="categories" value="Digital Inclusion" /> Digital Inclusion</label>
+                <label><input type="checkbox" name="categories" value="Disability" /> Disability</label>
+                <label><input type="checkbox" name="categories" value="Education" /> Education </label>
+                <label><input type="checkbox" name="categories" value="Employment, Skills & Enterprise " /> Employment, Skills & Enterprise </label>
+                <label><input type="checkbox" name="categories" value="Exercise & Outdoor Activities" /> Exercise & Outdoor Activities</label>
+                <label><input type="checkbox" name="categories" value="Faith Groups" /> Faith Groups</label>
+                <label><input type="checkbox" name="categories" value="Families" /> Families</label>
+                <label><input type="checkbox" name="categories" value="Family Activities " /> Family Activities </label>
+                <label><input type="checkbox" name="categories" value="Financial (debt advice or grants)" /> Financial (debt advice or grants)</label>
+                <label><input type="checkbox" name="categories" value="Fitness Classes" /> Fitness Classes</label>
+                <label><input type="checkbox" name="categories" value="Food Banks" /> Food Banks</label>
+                <label><input type="checkbox" name="categories" value="Fundraising" /> Fundraising</label>
+                <label><input type="checkbox" name="categories" value="Gardening & Environment" /> Gardening & Environment</label>
+                <label><input type="checkbox" name="categories" value="General Advice & Info" /> General Advice & Info</label>
+                <label><input type="checkbox" name="categories" value="Health Improvement & Management" /> Health Improvement & Management</label>
             </div>
-        </div>
-    </main>
+            <div class="column">
+                <label><input type="checkbox" name="categories" value="Heritage & Museums" /> Heritage & Museums</label>
+                <label><input type="checkbox" name="categories" value="Hobbies & Interests" /> Hobbies & Interests</label>
+                <label><input type="checkbox" name="categories" value="Holiday & Respite" /> Holiday & Respite</label>
+                <label><input type="checkbox" name="categories" value="Homelessness" /> Homelessness</label>
+                <label><input type="checkbox" name="categories" value="Housing " /> Housing </label>
+                <label><input type="checkbox" name="categories" value="Independent Living" /> Independent Living</label>
+                <label><input type="checkbox" name="categories" value="Legal Advice" /> Legal Advice</label>
+                <label><input type="checkbox" name="categories" value="Library & Reading Groups" /> Library & Reading Groups</label>
+                <label><input type="checkbox" name="categories" value="Mental Health" /> Mental Health</label>
+                <label><input type="checkbox" name="categories" value="Neighbourhood & Communities" /> Neighbourhood & Communities</label>
+                <label><input type="checkbox" name="categories" value="Other - Advice, Support & Self Help" /> Other - Advice, Support & Self Help</label>
+                <label><input type="checkbox" name="categories" value="Other - Healthy Living" /> Other - Healthy Living</label>
+                <label><input type="checkbox" name="categories" value="Other - Social Groups & Activities" /> Other - Social Groups & Activities</label>
+                <label><input type="checkbox" name="categories" value="Palliative Care" /> Palliative Care</label>
+                <label><input type="checkbox" name="categories" value="Parenting" /> Parenting</label>
+                <label><input type="checkbox" name="categories" value="Safety & Security" /> Safety & Security</label>
+                <label><input type="checkbox" name="categories" value="Smoking Cessation" /> Smoking Cessation</label>
+                <label><input type="checkbox" name="categories" value="Social Groups" /> Social Groups</label>
+                <label><input type="checkbox" name="categories" value="Social Prescribing" /> Social Prescribing</label>
+                <label><input type="checkbox" name="categories" value="Sports Clubs" /> Sports Clubs</label>
+                <label><input type="checkbox" name="categories" value="Transport & Mobility" /> Transport & Mobility</label>
+                <label><input type="checkbox" name="categories" value="Violence & Abuse" /> Violence & Abuse</label>
+                <label><input type="checkbox" name="categories" value="Volunteering" /> Volunteering</label>
+                <label><input type="checkbox" name="categories" value="Wellbeing" /> Wellbeing</label>
+                <label><input type="checkbox" name="categories" value="Youth Social Groups" /> Youth Social Groups</label>
+            </div>
+            <input required id="postcode" placeholder="Enter Postcode Here">
+            <button type="submit" id="postcode-btn">Search</button>
+        </form>
+      </div>
+    </div>
+    <div id="loading" class="loading-screen">
+        <h4>Loading</h4>
+        <div id="loading-spinner"></div>
+        <div id="updateLoading"></div>
+    </div>
+    <!-- Map container -->
+    <div id="map"></div>
+    <div>
+        <button id='search' class="search">Search</button>
+    </div>
+  </main>
+  <!-- JavaScript -->
+  <script src="script.js" defer></script>
+  <!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+    integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+    crossorigin=""></script>
+  <!-- Marker Cluster -->
+  <script src="dist/leaflet.markercluster-src.js"></script>
 </body>
 </html>
-
-<!-- import jQuery -->
-<script type="application/javascript" src="jquery-2.2.3.min.js"></script>
