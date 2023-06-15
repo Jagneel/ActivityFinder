@@ -7,6 +7,9 @@ const searchAgain = document.getElementById('search')
 const loadingScreen = document.getElementById('loading')
 const updateLoading = document.getElementById('updateLoading')
 const closeBtn = document.getElementById('closeBtn');
+const radiusSlider = document.getElementById('radius-slider');
+const radiusValue = document.getElementById('radius-value');
+const selectAllButton = document.getElementById("select-all-button");
 
 // Function to show the modal
 function showModal() {
@@ -105,8 +108,40 @@ function updateLoadingScreen() {
   updateLoading.innerHTML = `<p>Currently found ${activityCounter} activities nearby`
 }
 
+// Update slider value dynamically
+radiusSlider.addEventListener('input', function() {
+  radiusValue.textContent = this.value;
+});
+
+// On page load make slider value 0.1
+radiusValue.textContent = radiusSlider.value;
+
+// Select all categories function
+
+function selectAllCategories() {
+  const categoryCheckboxes = document.querySelectorAll("input[name=categories]");
+  const firstCheckbox = categoryCheckboxes[0];
+  const selectAllChecked = !firstCheckbox.checked;
+
+  categoryCheckboxes.forEach((checkbox) => {
+    checkbox.checked = selectAllChecked;
+  });
+}
+
+// Add event listener to button
+selectAllButton.addEventListener("click", selectAllCategories);
+
+
+
+
+
+
+
+
+
 // Handle submission form and extract the postcode and selected categories
 activitySearch.addEventListener('submit', async function(event) {
+
   event.preventDefault();
 
   // Clear any existing markers on the map.
@@ -118,8 +153,7 @@ activitySearch.addEventListener('submit', async function(event) {
   // Show the loading screen 
   showLoadingScreen();
 
-
-  const selectedCategories = Array.from(document.querySelectorAll("input[name=categories]:checked")).map(checkbox => checkbox.value);
+const selectedCategories = Array.from(document.querySelectorAll("input[name=categories]:checked")).map(checkbox => checkbox.value);
 
   const jsonData = await getCsvData();
   if (!jsonData) {
@@ -224,10 +258,12 @@ activitySearch.addEventListener('submit', async function(event) {
       marker.bindPopup('You are here').openPopup();
       map.setView([lat, lng], 14);
 
-      boundingBox.left = lng - 0.028;
-      boundingBox.bottom = lat - 0.016;
-      boundingBox.right = lng + 0.028;
-      boundingBox.topper = lat + 0.016;
+      boundingBox.left = lng - 0.028 * radiusSlider.value;
+      boundingBox.bottom = lat - 0.016 * radiusSlider.value;
+      boundingBox.right = lng + 0.028 * radiusSlider.value;
+      boundingBox.topper = lat + 0.016 * radiusSlider.value;
+
+      console.log(radiusSlider.value)
 
       let mapBounds = [[boundingBox.bottom, boundingBox.left], [boundingBox.topper, boundingBox.right]];
       map.fitBounds(mapBounds);
@@ -250,3 +286,4 @@ activitySearch.addEventListener('submit', async function(event) {
 searchAgain.addEventListener('click', function() {
   showModal();
 })
+

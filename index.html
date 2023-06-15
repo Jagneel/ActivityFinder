@@ -24,6 +24,7 @@
         <h2>Hello and welcome to Croydon Voluntary Action Activity Finder</h2>
         <h3>To find activities near you, please check what categories you are interested in and enter your postcode.</h3>
         <form class="modal-form" id="activity-search">
+          
             <div class="column">
                 <label><input type="checkbox" name="categories" value="Advocacy" /> Advocacy</label>
                 <label><input type="checkbox" name="categories" value="Alcohol & Substance Misuse" /> Alcohol & Substance Misuse</label>
@@ -78,8 +79,16 @@
                 <label><input type="checkbox" name="categories" value="Wellbeing" /> Wellbeing</label>
                 <label><input type="checkbox" name="categories" value="Youth Social Groups" /> Youth Social Groups</label>
             </div>
-            <input required id="postcode" placeholder="Enter Postcode Here">
-            <button type="submit" id="postcode-btn">Search</button>
+            <div class="form-footer">
+              <label><input id="select-all-button" type="checkbox" name="categories" value="Select All Categories" /> Select all categories</label>
+              <div class="slider-container">
+                <label for="radius-slider">Mile Radius:</label>
+                <input type="range" id="radius-slider" min="0.1" max="10" step="0.1" value="0.1">
+                <span id="radius-value"></span><span> miles</span> 
+              </div>
+              <input required id="postcode" placeholder="Enter Postcode Here">
+              <button type="submit" id="postcode-btn">Search</button>
+            </div>
         </form>
         <span id="closeBtn" class="close-button">&times;</span>
     </div>

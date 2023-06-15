@@ -37,6 +37,7 @@
     border-radius: 20px;
     border: 1px solid #888;
     width: 70%;
+    height: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,16 +45,16 @@
 }
 
 .modal-form {
+    border-radius: 20px;
     background-color: #fff;
     padding: 20px;
     width: 80%;
     /* Adjust the width as desired */
-    max-height: 500px;
+    min-height: 80%;
     /* Adjust the height as desired */
     overflow-y: auto;
     margin-top: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    ;
 }
 
 .close-button {
@@ -97,7 +98,7 @@
 .modal button {
     background-color: #4CAF50;
     color: #fff;
-    padding: 10px 20px;
+    padding: 5px 10px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
@@ -120,22 +121,32 @@ form#activity-search {
     font-size: 25px;
 }
 
+.form-footer {
+    display: block;
+    margin-top: 10px;
+    min-width: 100%
+}
+
+
 .column {
     display: grid;
     grid-template-columns: 1fr;
     gap: 5px;
 }
 
+label {
+    font-size: 20px;
+}
+
 #postcode {
-    /* margin-top: 20px; */
     text-align: center;
-    font-size: 30px;
-    padding: 10px 20px;
+    font-size: 20px;
+    padding: 0.2em;
 }
 
 #activity-search button {
-    font-size: 25px;
-    padding: 0.5em;
+    font-size: 20px;
+    padding: 0.3em;
 }
 
 #activity-list {
@@ -220,6 +231,17 @@ form#activity-search {
     animation: spin 1s linear infinite;
     /* Animation properties */
 }
+
+.slider-container label {
+    margin: 0;
+    font-size: 20px;
+}
+
+.slider-container span {
+    font-size: 20px;
+    margin-bottom: 14px;
+}
+
 
 
 @keyframes spin {
