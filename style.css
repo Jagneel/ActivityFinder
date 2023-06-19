@@ -122,9 +122,10 @@ form#activity-search {
 }
 
 .form-footer {
-    display: block;
+    display: grid;
+    grid-column: 1 / span 3;
     margin-top: 10px;
-    min-width: 100%
+
 }
 
 
@@ -142,6 +143,7 @@ label {
     text-align: center;
     font-size: 20px;
     padding: 0.2em;
+    margin: 10px 0;
 }
 
 #activity-search button {
@@ -233,7 +235,7 @@ label {
 }
 
 .slider-container label {
-    margin: 0;
+    margin: 20px 0 0 0;
     font-size: 20px;
 }
 
